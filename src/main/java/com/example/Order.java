@@ -40,4 +40,8 @@ public class Order {
     public void setTotalAmount(double totalAmount) {
         this.totalAmount = totalAmount;
     }
+
+    public void addDiscount(double discount) {
+        this.discount += discount;
+    }
 }

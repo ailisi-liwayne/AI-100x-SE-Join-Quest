@@ -11,10 +11,9 @@ public class ThresholdPromotion implements Promotion {
     }
 
     @Override
-    public double apply(double originalAmount) {
-        if (originalAmount >= threshold) {
-            return discount;
+    public void apply(Order order) {
+        if (order.getOriginalAmount() >= threshold) {
+            order.addDiscount(discount);
         }
-        return 0;
     }
 }

@@ -13,13 +13,9 @@ public class BuyOneGetOnePromotion implements Promotion {
     }
 
     @Override
-    public double apply(double originalAmount) {
-        return 0; // This promotion does not directly apply a discount to the total amount
-    }
-
-    public List<OrderItem> applyToItems(List<OrderItem> originalItems) {
+    public void apply(Order order) {
         List<OrderItem> newItems = new ArrayList<>();
-        for (OrderItem item : originalItems) {
+        for (OrderItem item : order.getItems()) {
             if (item.getProduct().getCategory() != null && item.getProduct().getCategory().equals(category)) {
                 // For buy one get one, add one free item for each item purchased
                 newItems.add(new OrderItem(item.getProduct(), item.getQuantity() + 1));
@@ -27,7 +23,7 @@ public class BuyOneGetOnePromotion implements Promotion {
                 newItems.add(item);
             }
         }
-        return newItems;
+        order.setItems(newItems);
     }
 }
 

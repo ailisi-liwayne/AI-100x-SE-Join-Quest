@@ -14,31 +14,22 @@ public class OrderService {
 
     public Order calculateOrder(List<OrderItem> initialItems) {
         Order order = new Order();
-        List<OrderItem> finalItems = new ArrayList<>(initialItems);
+        order.setItems(new ArrayList<>(initialItems)); // Initialize order with initial items
 
-        // Apply item-based promotions first
-        for (Promotion promotion : promotions) {
-            if (promotion instanceof BuyOneGetOnePromotion) {
-                finalItems = ((BuyOneGetOnePromotion) promotion).applyToItems(finalItems);
-            }
-        }
-        order.setItems(finalItems);
-
+        // Calculate original amount before any item modifications
         double originalAmount = 0;
-        for (OrderItem item : initialItems) { // Calculate original amount based on initial items
+        for (OrderItem item : initialItems) {
             originalAmount += item.getProduct().getUnitPrice() * item.getQuantity();
         }
         order.setOriginalAmount(originalAmount);
 
-        double totalDiscount = 0;
+        // Apply all promotions
         for (Promotion promotion : promotions) {
-            if (!(promotion instanceof BuyOneGetOnePromotion)) {
-                totalDiscount += promotion.apply(originalAmount);
-            }
+            promotion.apply(order);
         }
-        order.setDiscount(totalDiscount);
 
-        order.setTotalAmount(originalAmount - totalDiscount);
+        // Calculate final total amount
+        order.setTotalAmount(order.getOriginalAmount() - order.getDiscount());
 
         return order;
     }

@@ -86,4 +86,10 @@ public class OrderSteps {
             assertEquals(Integer.parseInt(expected.get("quantity")), actual.getQuantity());
         }
     }
+
+    @Given("the Double {word} promotion is active, where for the same product with a quantity of {int} or more, a {int}% discount is applied to the total price of each batch of {int}")
+    public void the_double_promotion_is_active_where_for_the_same_product_with_a_quantity_of_or_more_a_discount_is_applied_to_the_total_price_of_each_batch_of(String promotionName, Integer quantityThreshold, Integer discountPercentage, Integer batchSize) {
+        // Write code here that turns the phrase above into concrete actions
+        orderService.addPromotion(new Double11Promotion(quantityThreshold, discountPercentage, batchSize));
+    }
 }
