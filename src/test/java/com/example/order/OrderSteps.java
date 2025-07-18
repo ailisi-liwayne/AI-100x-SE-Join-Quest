@@ -1,5 +1,5 @@
 
-package com.example;
+package com.example.order;
 
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;

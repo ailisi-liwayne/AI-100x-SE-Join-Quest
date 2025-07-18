@@ -1,4 +1,4 @@
-package com.example;
+package com.example.order;
 
 public class OrderItem {
     private Product product;

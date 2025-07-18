@@ -1,5 +1,5 @@
 
-package com.example;
+package com.example.order;
 
 public class Product {
     private String name;
